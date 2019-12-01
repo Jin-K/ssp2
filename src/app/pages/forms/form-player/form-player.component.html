@@ -1,0 +1,149 @@
+<div class="row">
+    <div class="col-lg-6">
+      <nb-card>
+        <nb-card-header>Fiche du joueur</nb-card-header>
+        <nb-card-body>
+          <div class="full-name-inputs">
+            <input type="text" fieldSize="small" nbInput fullWidth placeholder="Prénom">
+            <input type="text" fieldSize="small" nbInput fullWidth placeholder="Nom de famille">
+          </div>
+          <div class="d-flex">
+            <input class="mr-2" fieldSize="small" nbInput fullWidth placeholder="Date de naissance" [nbDatepicker]="picker">
+            <nb-select class="ml-2" fullWidth selected="1">
+              <nb-option value="1">Gaucher</nb-option>
+              <nb-option value="2">Droitier</nb-option>
+            </nb-select>
+            <nb-datepicker #picker [min]="min" [max]="max"></nb-datepicker>
+          </div>
+          <div class="d-flex">
+            <input class="mr-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Origine">
+            <input class="ml-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Nationalité">
+          </div>
+          <div class="d-flex">
+            <input class="mr-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Sponsor">
+            <input class="ml-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Club(s)">
+          </div>
+          <div class="d-flex">
+            <input class="mr-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Poste">
+            <input class="ml-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Palmarès">
+          </div>
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card>
+        <nb-card-header>Morphologie</nb-card-header>
+        <nb-card-body>
+          <div class="d-flex">
+            <input type="number" class="mr-2" fieldSize="small" nbInput fullWidth placeholder="Taille (cm)">
+            <input type="number" class="mx-2" fieldSize="small" nbInput fullWidth placeholder="Poids (kg)">
+            <input type="number" class="ml-2" fieldSize="small" nbInput fullWidth placeholder="Pointure">
+          </div>
+          <div class="d-flex">
+            <input type="number" class="mr-2" fieldSize="small" nbInput fullWidth placeholder="M. graisseuse (%)">
+            <input type="number" class="mx-2" fieldSize="small" nbInput fullWidth placeholder="M. musculaire (%)">
+            <input type="number" class="ml-2" fieldSize="small" nbInput fullWidth placeholder="M. osseuse (kg)">
+          </div>
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card>
+        <nb-card-header>Test Physique</nb-card-header>
+        <nb-card-body>
+          <div class="d-flex">
+            <input class="mr-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Accélération">
+            <input class="ml-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Vitesse">
+          </div>
+          <div class="d-flex">
+            <input class="mr-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Détente">
+            <input class="ml-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Cardio/B min">
+          </div>
+          <div class="d-flex">
+            <input class="mr-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Bip test">
+            <input class="ml-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Précision pied droit">
+          </div>
+          <div class="d-flex">
+            <input class="mr-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Précision pied gauche">
+            <input class="ml-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Précision de tir">
+          </div>
+          <div class="d-flex">
+            <input class="mr-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Puissance de tir">
+            <input class="ml-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Réactivité">
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  
+    <div class="col-lg-6">
+      <!-- <nb-card>
+        <nb-card-header>Checkboxes & Radios</nb-card-header>
+        <nb-card-body class="checkbox-radio">
+          <div class="demo-items">
+            <nb-checkbox>Checkbox 1</nb-checkbox>
+            <nb-checkbox [value]="true">Checkbox 2</nb-checkbox>
+          </div>
+          <div class="demo-items">
+            <nb-radio-group [(value)]="radioGroupValue">
+              <nb-radio
+                [value]="'This is value 1'">
+                Radio 1
+              </nb-radio>
+              <nb-radio
+                [value]="'This is value 2'">
+                Radio 2
+              </nb-radio>
+              <nb-radio
+                [value]="'This is value 3'">
+                Radio 3
+              </nb-radio>
+            </nb-radio-group>
+          </div>
+          <div class="demo-items">
+            <nb-checkbox disabled>Disabled Checkbox</nb-checkbox>
+            <nb-radio-group disabled>
+              <nb-radio
+                [value]="'Disabled Value'">
+                Disabled Radio
+              </nb-radio>
+            </nb-radio-group>
+          </div>
+        </nb-card-body>
+      </nb-card> -->
+
+      <nb-card>
+        <nb-card-header>Photo & N° de maillot</nb-card-header>
+        <nb-card-body>
+          <input type="file" fieldSize="small" nbInput fullWidth placeholder="Photo">
+          <input type="file" fieldSize="small" nbInput fullWidth placeholder="N° de maillot">
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card>
+        <nb-card-header>Réseaux sociaux</nb-card-header>
+        <nb-card-body>
+          <div class="d-flex">
+            <input class="mr-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Instagram">
+            <input class="ml-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Facebook">
+          </div>
+          <div class="d-flex">
+            <input class="mr-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Snapchat">
+            <input class="ml-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Twitter">
+          </div>
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card>
+        <nb-card-header>Résultats PLAYR</nb-card-header>
+        <nb-card-body>
+          <input type="file" fieldSize="small" nbInput fullWidth placeholder="Photo">
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card>
+        <nb-card-header>Vidéos</nb-card-header>
+        <nb-card-body>
+          <input type="text" fieldSize="small" nbInput fullWidth placeholder="Lien youtube">
+        </nb-card-body>
+      </nb-card>
+    </div>
+</div>
+  
