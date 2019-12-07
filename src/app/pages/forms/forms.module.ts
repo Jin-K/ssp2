@@ -20,6 +20,9 @@ import { DatepickerComponent } from './datepicker/datepicker.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { FormsModule as ngFormsModule } from '@angular/forms';
 import { FormPlayerComponent } from './form-player/form-player.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { formsReducer, FORMS_INITIAL_STATE, FormsEffects } from './state';
 
 @NgModule({
   imports: [
@@ -36,6 +39,8 @@ import { FormPlayerComponent } from './form-player/form-player.component';
     NbSelectModule,
     NbIconModule,
     ngFormsModule,
+    StoreModule.forFeature('forms', formsReducer, { initialState: FORMS_INITIAL_STATE }),
+    EffectsModule.forFeature([FormsEffects]),
   ],
   declarations: [
     FormsComponent,
