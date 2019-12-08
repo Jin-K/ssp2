@@ -1,149 +1,130 @@
-<div class="row">
-    <div class="col-lg-6">
-      <nb-card>
+<form [formGroup]="playerForm" (ngSubmit)="submit()">
+
+  <div class="row">
+    <div class="col-lg-2">
+      <nb-card formGroupName="pictures">
+        <nb-card-header>Photo & N° de maillot</nb-card-header>
+        <nb-card-body>
+          <input type="file" formControlName="photo" fieldSize="small" nbInput fullWidth placeholder="Photo">
+          <input type="file" formControlName="numero" fieldSize="small" nbInput fullWidth placeholder="N° de maillot">
+        </nb-card-body>
+      </nb-card>
+    </div>
+
+    <div class="col-lg-5">
+      <nb-card formGroupName="card">
         <nb-card-header>Fiche du joueur</nb-card-header>
         <nb-card-body>
           <div class="full-name-inputs">
-            <input type="text" fieldSize="small" nbInput fullWidth placeholder="Prénom">
-            <input type="text" fieldSize="small" nbInput fullWidth placeholder="Nom de famille">
+            <input type="text" formControlName="firstName" fieldSize="small" [status]="controlStatuses['firstName']" nbInput fullWidth placeholder="Prénom">
+            <input type="text" formControlName="lastName" fieldSize="small" [status]="controlStatuses['lastName']" nbInput fullWidth placeholder="Nom de famille">
           </div>
           <div class="d-flex">
-            <input class="mr-2" fieldSize="small" nbInput fullWidth placeholder="Date de naissance" [nbDatepicker]="picker">
-            <nb-select class="ml-2" fullWidth selected="1">
+            <input class="mr-2" formControlName="birthday" fieldSize="small" nbInput fullWidth placeholder="Date de naissance" [nbDatepicker]="picker">
+            <nb-select class="ml-2" formControlName="favoriteFoot" fullWidth selected="1" size="small">
               <nb-option value="1">Gaucher</nb-option>
               <nb-option value="2">Droitier</nb-option>
             </nb-select>
             <nb-datepicker #picker [min]="min" [max]="max"></nb-datepicker>
           </div>
           <div class="d-flex">
-            <input class="mr-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Origine">
-            <input class="ml-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Nationalité">
+            <input class="mr-2" type="text" formControlName="origin" fieldSize="small" nbInput fullWidth placeholder="Origine">
+            <input class="ml-2" type="text" formControlName="nationality" fieldSize="small" nbInput fullWidth placeholder="Nationalité">
           </div>
           <div class="d-flex">
-            <input class="mr-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Sponsor">
-            <input class="ml-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Club(s)">
+            <input class="mr-2" type="text" formControlName="sponsors" fieldSize="small" nbInput fullWidth placeholder="Sponsor">
+            <input class="ml-2" type="text" formControlName="clubs" fieldSize="small" nbInput fullWidth placeholder="Club(s)">
           </div>
           <div class="d-flex">
-            <input class="mr-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Poste">
-            <input class="ml-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Palmarès">
+            <input class="mr-2" type="text" formControlName="post" fieldSize="small" nbInput fullWidth placeholder="Poste">
+            <input class="ml-2" type="text" formControlName="trackRecord" fieldSize="small" nbInput fullWidth placeholder="Palmarès">
           </div>
         </nb-card-body>
       </nb-card>
 
-      <nb-card>
+      <nb-card formGroupName="morphology">
         <nb-card-header>Morphologie</nb-card-header>
         <nb-card-body>
           <div class="d-flex">
-            <input type="number" class="mr-2" fieldSize="small" nbInput fullWidth placeholder="Taille (cm)">
-            <input type="number" class="mx-2" fieldSize="small" nbInput fullWidth placeholder="Poids (kg)">
-            <input type="number" class="ml-2" fieldSize="small" nbInput fullWidth placeholder="Pointure">
+            <input type="number" formControlName="size" class="mr-2" fieldSize="small" nbInput fullWidth placeholder="Taille (cm)">
+            <input type="number" formControlName="weight" class="mx-2" fieldSize="small" nbInput fullWidth placeholder="Poids (kg)">
+            <input type="number" formControlName="footSize" class="ml-2" fieldSize="small" nbInput fullWidth placeholder="Pointure">
           </div>
-          <div class="d-flex">
-            <input type="number" class="mr-2" fieldSize="small" nbInput fullWidth placeholder="M. graisseuse (%)">
-            <input type="number" class="mx-2" fieldSize="small" nbInput fullWidth placeholder="M. musculaire (%)">
-            <input type="number" class="ml-2" fieldSize="small" nbInput fullWidth placeholder="M. osseuse (kg)">
+          <div class="d-flex" formGroupName="masses">
+            <input type="number" formControlName="fat" class="mr-2" fieldSize="small" nbInput fullWidth placeholder="M. graisseuse (%)">
+            <input type="number" formControlName="muscular" class="mx-2" fieldSize="small" nbInput fullWidth placeholder="M. musculaire (%)">
+            <input type="number" formControlName="bone" class="ml-2" fieldSize="small" nbInput fullWidth placeholder="M. osseuse (kg)">
           </div>
         </nb-card-body>
       </nb-card>
 
-      <nb-card>
-        <nb-card-header>Test Physique</nb-card-header>
-        <nb-card-body>
-          <div class="d-flex">
-            <input class="mr-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Accélération">
-            <input class="ml-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Vitesse">
-          </div>
-          <div class="d-flex">
-            <input class="mr-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Détente">
-            <input class="ml-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Cardio/B min">
-          </div>
-          <div class="d-flex">
-            <input class="mr-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Bip test">
-            <input class="ml-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Précision pied droit">
-          </div>
-          <div class="d-flex">
-            <input class="mr-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Précision pied gauche">
-            <input class="ml-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Précision de tir">
-          </div>
-          <div class="d-flex">
-            <input class="mr-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Puissance de tir">
-            <input class="ml-2" type="number" fieldSize="small" nbInput fullWidth placeholder="Réactivité">
-          </div>
-        </nb-card-body>
-      </nb-card>
-    </div>
-  
-    <div class="col-lg-6">
-      <!-- <nb-card>
-        <nb-card-header>Checkboxes & Radios</nb-card-header>
-        <nb-card-body class="checkbox-radio">
-          <div class="demo-items">
-            <nb-checkbox>Checkbox 1</nb-checkbox>
-            <nb-checkbox [value]="true">Checkbox 2</nb-checkbox>
-          </div>
-          <div class="demo-items">
-            <nb-radio-group [(value)]="radioGroupValue">
-              <nb-radio
-                [value]="'This is value 1'">
-                Radio 1
-              </nb-radio>
-              <nb-radio
-                [value]="'This is value 2'">
-                Radio 2
-              </nb-radio>
-              <nb-radio
-                [value]="'This is value 3'">
-                Radio 3
-              </nb-radio>
-            </nb-radio-group>
-          </div>
-          <div class="demo-items">
-            <nb-checkbox disabled>Disabled Checkbox</nb-checkbox>
-            <nb-radio-group disabled>
-              <nb-radio
-                [value]="'Disabled Value'">
-                Disabled Radio
-              </nb-radio>
-            </nb-radio-group>
-          </div>
-        </nb-card-body>
-      </nb-card> -->
-
-      <nb-card>
-        <nb-card-header>Photo & N° de maillot</nb-card-header>
-        <nb-card-body>
-          <input type="file" fieldSize="small" nbInput fullWidth placeholder="Photo">
-          <input type="file" fieldSize="small" nbInput fullWidth placeholder="N° de maillot">
-        </nb-card-body>
-      </nb-card>
-
-      <nb-card>
+      <nb-card formGroupName="networks">
         <nb-card-header>Réseaux sociaux</nb-card-header>
         <nb-card-body>
           <div class="d-flex">
-            <input class="mr-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Instagram">
-            <input class="ml-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Facebook">
+            <input class="mr-2" type="text" formControlName="instagram" fieldSize="small" nbInput fullWidth placeholder="Instagram">
+            <input class="ml-2" type="text" formControlName="facebook" fieldSize="small" nbInput fullWidth placeholder="Facebook">
           </div>
           <div class="d-flex">
-            <input class="mr-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Snapchat">
-            <input class="ml-2" type="text" fieldSize="small" nbInput fullWidth placeholder="Twitter">
+            <input class="mr-2" type="text" formControlName="snapchat" fieldSize="small" nbInput fullWidth placeholder="Snapchat">
+            <input class="ml-2" type="text" formControlName="twitter" fieldSize="small" nbInput fullWidth placeholder="Twitter">
           </div>
-        </nb-card-body>
-      </nb-card>
-
-      <nb-card>
-        <nb-card-header>Résultats PLAYR</nb-card-header>
-        <nb-card-body>
-          <input type="file" fieldSize="small" nbInput fullWidth placeholder="Photo">
-        </nb-card-body>
-      </nb-card>
-
-      <nb-card>
-        <nb-card-header>Vidéos</nb-card-header>
-        <nb-card-body>
-          <input type="text" fieldSize="small" nbInput fullWidth placeholder="Lien youtube">
         </nb-card-body>
       </nb-card>
     </div>
-</div>
+
+    <div class="col-lg-5">      
+      <nb-card formGroupName="test">
+        <nb-card-header>Test Physique</nb-card-header>
+        <nb-card-body>
+          <div class="d-flex">
+            <input class="mr-2" type="number" formControlName="acceleration" fieldSize="small" nbInput fullWidth placeholder="Accélération">
+            <input class="ml-2" type="number" formControlName="speed" fieldSize="small" nbInput fullWidth placeholder="Vitesse">
+          </div>
+          <div class="d-flex">
+            <input class="mr-2" type="number" formControlName="trigger" fieldSize="small" nbInput fullWidth placeholder="Détente">
+            <input class="ml-2" type="number" formControlName="cardio" fieldSize="small" nbInput fullWidth placeholder="Cardio/B min">
+          </div>
+          <div class="d-flex">
+            <input class="mr-2" type="number" formControlName="bipTest" fieldSize="small" nbInput fullWidth placeholder="Bip test">
+            <input class="ml-2" type="number" formControlName="RightFootAccuracy" fieldSize="small" nbInput fullWidth placeholder="Précision pied droit">
+          </div>
+          <div class="d-flex">
+            <input class="mr-2" type="number" formControlName="leftFootAccuracy" fieldSize="small" nbInput fullWidth placeholder="Précision pied gauche">
+            <input class="ml-2" type="number" formControlName="shootingAccuracy" fieldSize="small" nbInput fullWidth placeholder="Précision de tir">
+          </div>
+          <div class="d-flex">
+            <input class="mr-2" type="number" formControlName="shootingPower" fieldSize="small" nbInput fullWidth placeholder="Puissance de tir">
+            <input class="ml-2" type="number" formControlName="reactivity" fieldSize="small" nbInput fullWidth placeholder="Réactivité">
+          </div>
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card formArrayName="results">
+        <nb-card-header>Résultats PLAYR</nb-card-header>
+        <nb-card-body>
+          <input type="file" *ngFor="let result of playerForm.get('results').controls; let i=index" [formControlName]="i" fieldSize="small" nbInput fullWidth placeholder="Photo">
+          <button nbButton size="small" (click)="addResult()">Ajouter</button>
+          <button class="ml-3" status="danger" nbButton size="small" (click)="removeResult()">Retirer</button>
+        </nb-card-body>
+      </nb-card>
+
+      <nb-card formArrayName="videos">
+        <nb-card-header>Vidéos</nb-card-header>
+        <nb-card-body>
+          <input type="text" *ngFor="let video of playerForm.get('videos').controls; let i=index" [formControlName]="i" fieldSize="small" nbInput fullWidth placeholder="Lien youtube">
+          <button nbButton size="small" (click)="addVideo()">Ajouter</button>
+          <button class="ml-3" status="danger" nbButton size="small" (click)="removeVideo()">Retirer</button>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col text-right">
+      <button type="submit" nbButton [disabled]="playerForm.invalid">Submit</button>
+    </div>
+  </div>
+
+</form>
   
