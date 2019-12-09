@@ -23,6 +23,7 @@ import { FormPlayerComponent } from './form-player/form-player.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { formsReducer, FORMS_INITIAL_STATE, FormsEffects } from './state';
+import { SafePipe } from '../../@core/pipes';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { formsReducer, FORMS_INITIAL_STATE, FormsEffects } from './state';
     FormLayoutsComponent,
     DatepickerComponent,
     FormPlayerComponent,
+    SafePipe,
   ],
 })
 export class FormsModule { }

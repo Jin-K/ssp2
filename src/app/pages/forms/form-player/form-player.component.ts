@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FormsActions } from '../state';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app-store';
@@ -9,7 +9,9 @@ import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@ang
   templateUrl: './form-player.component.html',
   styleUrls: ['./form-player.component.scss'],
 })
-export class FormPlayerComponent {
+export class FormPlayerComponent implements OnInit {
+
+  @ViewChild('iframe', { static: true }) iframe: ElementRef;
 
   public controlStatuses: { [controlName: string]: string} = {};
 
@@ -70,6 +72,12 @@ export class FormPlayerComponent {
     private readonly store: Store<AppState>,
     private readonly formBuilder: FormBuilder,
   ) {}
+
+  public ngOnInit(): void {
+    console.info(this.iframe);
+    const doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
+    console.info('doc', doc);
+  }
 
   public submit(): void {
     this.controlStatuses = {};
