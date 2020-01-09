@@ -7,6 +7,7 @@ import { FormLayoutsComponent } from './form-layouts/form-layouts.component';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { FormPlayerComponent } from './form-player/form-player.component';
+import { AuthGuard } from '../../auth-guard.service';
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
       {
         path: 'player',
         component: FormPlayerComponent,
+        canActivate: [AuthGuard],
       },
     ],
   },

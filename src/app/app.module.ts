@@ -6,7 +6,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
@@ -21,6 +21,9 @@ import {
   NbWindowModule,
 } from '@nebular/theme';
 import { AppStoreModule } from './app-store/app-store.module';
+import { AuthGuard } from './auth-guard.service';
+import { NbAuthModule, NbAuthJWTToken, NbAuthJWTInterceptor, NB_AUTH_TOKEN_INTERCEPTOR_FILTER } from '@nebular/auth';
+import { JwtAuthStrategy } from './auth/services/jwt-auth-strategy.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +46,34 @@ import { AppStoreModule } from './app-store/app-store.module';
     }),
     CoreModule.forRoot(),
     AppStoreModule,
+    NbAuthModule.forRoot({
+      strategies: [
+        JwtAuthStrategy.setup({
+          name: 'username',
+          token: {
+            class: NbAuthJWTToken,
+            key: 'token',
+          },
+          baseEndpoint: 'https://sport-stat-pro.com/wp-json/jwt-auth/v1',
+          login: {
+            // ...
+            endpoint: '/token',
+            defaultErrors: ['Email and password combination is not correct, please try again'],
+          },
+        }),
+      ],
+      forms: {
+        login: {
+          strategy: 'username',
+        },
+      },
+    }),
+  ],
+  providers: [
+    AuthGuard,
+    JwtAuthStrategy,
+    { provide: HTTP_INTERCEPTORS, useClass: NbAuthJWTInterceptor, multi: true },
+    { provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER, useValue: req => false },
   ],
   bootstrap: [AppComponent],
 })
