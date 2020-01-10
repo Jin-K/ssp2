@@ -9,6 +9,7 @@ import {
   NbRadioModule,
   NbSelectModule,
   NbUserModule,
+  NbAccordionModule,
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -22,8 +23,10 @@ import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/form
 import { FormPlayerComponent } from './form-player/form-player.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { formsReducer, FORMS_INITIAL_STATE, FormsEffects } from './state';
+import { FORMS_INITIAL_STATE, FormsEffects } from './state';
 import { SafePipe } from '../../@core/pipes';
+import { FormPlayerListComponent } from './form-player-list/form-player-list.component';
+import { formsReducer } from './state/forms.reducers';
 
 @NgModule({
   imports: [
@@ -43,6 +46,7 @@ import { SafePipe } from '../../@core/pipes';
     StoreModule.forFeature('forms', formsReducer, { initialState: FORMS_INITIAL_STATE }),
     EffectsModule.forFeature([FormsEffects]),
     ReactiveFormsModule,
+    NbAccordionModule,
   ],
   declarations: [
     FormsComponent,
@@ -52,6 +56,7 @@ import { SafePipe } from '../../@core/pipes';
     DatepickerComponent,
     FormPlayerComponent,
     SafePipe,
+    FormPlayerListComponent,
   ],
 })
 export class FormsModule { }

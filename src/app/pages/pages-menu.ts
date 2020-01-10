@@ -16,7 +16,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Player profile',
-        link: '/pages/forms/player',
+        link: '/pages/forms/player/list',
       },
     ],
   },

@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col">
+    <ul>
+      <li *ngFor="let project of projects">
+          <span>Title: {{project.title.rendered || 'pas de titre' }}</span>
+          <span>Status: {{project.status}}</span>
+          <span>Date: {{project.date | date }}</span>
+          <span>Author id: {{project.author}}</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col text-right">
+    <button type="button" nbButton routerLink="/pages/forms/player">Ajouter</button>
+  </div>
+</div>

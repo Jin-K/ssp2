@@ -1,26 +1,22 @@
-import { FormsAction, FormsActions } from './forms.actions';
-import { combineReducers, Action } from '@ngrx/store';
-import { IFormsState } from '.';
+import { formActions, FormAction } from './forms.actions';
+import { combineReducers, createReducer, on } from '@ngrx/store';
+import { IFormsState, FORMS_INITIAL_STATE } from '.';
 
-function crossFormsReducer(state: IFormsState, action: FormsAction): IFormsState {
-    switch (action.type) {
-        case FormsActions.Types.SAVE_PLAYER:
-            return {
-                ...state,
-            };
-        default:
-            return state;
-    }
-}
-
-const childrenReducer = combineReducers<Partial<IFormsState>, Action>({
+const childrenReducer = combineReducers<Partial<IFormsState>, FormAction>({
 
 });
 
-export const formsReducer = (state: IFormsState, action: FormsAction) => {
+const reducer = createReducer(
+    FORMS_INITIAL_STATE,
+    on(formActions.SavePlayer, (state, { type, ...action }) => ({
+        ...state,
+    })),
+);
+
+export function formsReducer(state: IFormsState, action: FormAction): IFormsState {
     const intermediateState = {
         ...state,
-        ...childrenReducer(state, action),
+        ...childrenReducer,
     };
-    return crossFormsReducer(intermediateState, action);
-};
+    return reducer(intermediateState, action);
+}

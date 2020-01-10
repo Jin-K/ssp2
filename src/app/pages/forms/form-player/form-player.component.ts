@@ -1,8 +1,9 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { FormsActions } from '../state';
+import { Component, OnInit } from '@angular/core';
+import { formActions } from '../state';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../app-store';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'ngx-form-player',
@@ -10,8 +11,6 @@ import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@ang
   styleUrls: ['./form-player.component.scss'],
 })
 export class FormPlayerComponent implements OnInit {
-
-  @ViewChild('iframe', { static: true }) iframe: ElementRef;
 
   public controlStatuses: { [controlName: string]: string} = {};
 
@@ -74,26 +73,21 @@ export class FormPlayerComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    console.info(this.iframe);
-    const doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
-    console.info('doc', doc);
   }
 
   public submit(): void {
     this.controlStatuses = {};
 
     if (this.playerForm.valid) {
-      this.store.dispatch(new FormsActions.SavePlayer(this.playerForm.value));
+      const data = this.playerForm.value;
+      this.store.dispatch(formActions.SavePlayer({data}));
     } else {
-      const cardGroup = this.playerForm.get('card') as FormGroup;
-      for (const cardControlName in cardGroup.controls) {
-        if (cardGroup.controls.hasOwnProperty(cardControlName)) {
-          const cardControl = cardGroup.controls[cardControlName] as FormControl;
-          if (cardControl.errors) {
-            this.controlStatuses[cardControlName] = 'danger';
-          }
+      const formGroup = this.playerForm.get('card') as FormGroup;
+      _.forEach(formGroup.controls, (control, controlName) => {
+        if (control.errors) {
+          this.controlStatuses[controlName] = 'danger';
         }
-      }
+      });
     }
   }
 
