@@ -171,11 +171,11 @@
   "defaultProject": "ssp-admin-demo",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "ngx",
+      "prefix": "ssp",
       "styleext": "scss"
     },
     "@schematics/angular:directive": {
-      "prefix": "ngx"
+      "prefix": "ssp"
     }
   }
 }

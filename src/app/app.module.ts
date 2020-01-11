@@ -44,7 +44,6 @@ import { CustomModule } from './@custom/custom.module';
     CoreModule.forRoot(),
     CustomModule.forRoot(),
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {

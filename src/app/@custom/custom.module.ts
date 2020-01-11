@@ -13,7 +13,7 @@ const CUSTOM_PROVIDERS = [
   AuthGuard,
   JwtAuthStrategy,
   { provide: HTTP_INTERCEPTORS, useClass: NbAuthJWTInterceptor, multi: true },
-  { provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER, useValue: req => false },
+  { provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER, useValue: _ => false },
 ];
 
 @NgModule({

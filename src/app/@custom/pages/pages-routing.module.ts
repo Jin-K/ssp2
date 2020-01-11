@@ -1,7 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../services/auth-guard.service';
-import { FormPlayerListComponent } from './player/form-player-list/form-player-list.component';
-import { FormPlayerComponent } from './player/form-player/form-player.component';
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 
@@ -12,20 +10,13 @@ const routes: Routes = [{
     {
       path: 'player',
       canActivate: [AuthGuard],
-      children: [
-        {
-          path: '',
-          component: FormPlayerListComponent,
-        },
-        {
-          path: 'edit',
-          component: FormPlayerComponent,
-        },
-      ],
+      loadChildren: () => import('./player/player.module')
+        .then(m => m.PlayerModule),
     },
     {
       path: '',
       redirectTo: 'player',
+      pathMatch: 'full',
     },
   ],
 }];

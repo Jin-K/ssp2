@@ -12,7 +12,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/custom/pages',
+        redirectTo: 'pages',
         pathMatch: 'full',
       },
     ],

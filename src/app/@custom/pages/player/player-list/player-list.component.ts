@@ -3,11 +3,11 @@ import { WordpressConnectorService } from '../../../services/wordpress-connector
 import { Project } from '../../../data/projects';
 
 @Component({
-  selector: 'ngx-form-player-list',
-  templateUrl: './form-player-list.component.html',
-  styleUrls: ['./form-player-list.component.scss'],
+  selector: 'ssp-player-list',
+  templateUrl: './player-list.component.html',
+  styleUrls: ['./player-list.component.scss'],
 })
-export class FormPlayerListComponent implements OnInit {
+export class PlayerListComponent implements OnInit {
 
   projects: Project[];
 

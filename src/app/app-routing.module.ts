@@ -47,11 +47,11 @@ const routes: Routes = [
   },
   {
     path: 'custom',
-    loadChildren: () => import('app/@custom/custom-routing.module')
+    loadChildren: () => import('./@custom/custom-routing.module')
       .then(m => m.CustomRoutingModule),
   },
-  { path: '', redirectTo: 'pages', pathMatch: 'full' },
-  { path: '**', redirectTo: 'pages' },
+  { path: '', redirectTo: 'custom', pathMatch: 'full' },
+  { path: '**', redirectTo: 'custom' },
 ];
 
 const config: ExtraOptions = {

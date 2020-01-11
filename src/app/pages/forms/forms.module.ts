@@ -9,7 +9,6 @@ import {
   NbRadioModule,
   NbSelectModule,
   NbUserModule,
-  NbAccordionModule,
 } from '@nebular/theme';
 
 import { ThemeModule } from '../../@theme/theme.module';
@@ -19,14 +18,7 @@ import { FormInputsComponent } from './form-inputs/form-inputs.component';
 import { FormLayoutsComponent } from './form-layouts/form-layouts.component';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { ButtonsComponent } from './buttons/buttons.component';
-import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormPlayerComponent } from '../../@custom/pages/player/form-player/form-player.component';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { FORMS_INITIAL_STATE, FormsEffects } from '../../@custom/pages/player/state';
-import { SafePipe } from '../../@core/pipes';
-import { FormPlayerListComponent } from '../../@custom/pages/player/form-player-list/form-player-list.component';
-import { formsReducer } from '../../@custom/pages/player/state/forms.reducers';
+import { FormsModule as ngFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -43,10 +35,6 @@ import { formsReducer } from '../../@custom/pages/player/state/forms.reducers';
     NbSelectModule,
     NbIconModule,
     ngFormsModule,
-    StoreModule.forFeature('forms', formsReducer, { initialState: FORMS_INITIAL_STATE }),
-    EffectsModule.forFeature([FormsEffects]),
-    ReactiveFormsModule,
-    NbAccordionModule,
   ],
   declarations: [
     FormsComponent,
@@ -54,9 +42,6 @@ import { formsReducer } from '../../@custom/pages/player/state/forms.reducers';
     FormInputsComponent,
     FormLayoutsComponent,
     DatepickerComponent,
-    FormPlayerComponent,
-    SafePipe,
-    FormPlayerListComponent,
   ],
 })
 export class FormsModule { }

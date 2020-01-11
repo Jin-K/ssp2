@@ -9,6 +9,7 @@ import {
   AnalyticsService,
   LayoutService,
   PlayerService,
+  SeoService,
   StateService,
 } from './utils';
 import { UserData } from './data/users';
@@ -140,6 +141,7 @@ export const NB_CORE_PROVIDERS = [
   AnalyticsService,
   LayoutService,
   PlayerService,
+  SeoService,
   StateService,
 ];
 
@@ -147,10 +149,10 @@ export const NB_CORE_PROVIDERS = [
   imports: [
     CommonModule,
   ],
-  declarations: [],
   exports: [
     NbAuthModule,
   ],
+  declarations: [],
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

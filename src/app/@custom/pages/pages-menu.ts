@@ -11,12 +11,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
-    title: 'Forms',
+    title: 'Player',
     icon: 'edit-2-outline',
     children: [
       {
-        title: 'Player profile',
-        link: '/pages/forms/player/list',
+        title: 'See all',
+        link: 'player',
+      },
+      {
+        title: 'Add',
+        link: 'player/edit',
       },
     ],
   },

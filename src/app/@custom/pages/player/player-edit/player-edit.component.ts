@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { formActions } from '../state';
+import { playerActions } from '../state';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'ngx-form-player',
-  templateUrl: './form-player.component.html',
-  styleUrls: ['./form-player.component.scss'],
+  selector: 'ssp-player-edit',
+  templateUrl: './player-edit.component.html',
+  styleUrls: ['./player-edit.component.scss'],
 })
-export class FormPlayerComponent implements OnInit {
+export class PlayerEditComponent implements OnInit {
 
   public controlStatuses: { [controlName: string]: string} = {};
 
@@ -80,7 +80,7 @@ export class FormPlayerComponent implements OnInit {
 
     if (this.playerForm.valid) {
       const data = this.playerForm.value;
-      this.store.dispatch(formActions.SavePlayer({data}));
+      this.store.dispatch(playerActions.SavePlayer({data}));
     } else {
       const formGroup = this.playerForm.get('card') as FormGroup;
       _.forEach(formGroup.controls, (control, controlName) => {
