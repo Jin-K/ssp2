@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { formActions } from '../state';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../app-store';
+import { AppState } from '../../../store';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import * as _ from 'lodash';
 

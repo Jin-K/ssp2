@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WordpressConnectorService } from '../../../@core/utils/wordpress-connector.service';
+import { WordpressConnectorService } from '../../../services/wordpress-connector.service';
 import { Project } from '../../../data/projects';
 
 @Component({

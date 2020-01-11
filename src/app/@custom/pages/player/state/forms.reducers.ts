@@ -1,8 +1,8 @@
 import { formActions, FormAction } from './forms.actions';
 import { combineReducers, createReducer, on } from '@ngrx/store';
-import { IFormsState, FORMS_INITIAL_STATE } from '.';
+import { FormsState, FORMS_INITIAL_STATE } from '.';
 
-const childrenReducer = combineReducers<Partial<IFormsState>, FormAction>({
+const childrenReducer = combineReducers<Partial<FormsState>, FormAction>({
 
 });
 
@@ -13,7 +13,7 @@ const reducer = createReducer(
     })),
 );
 
-export function formsReducer(state: IFormsState, action: FormAction): IFormsState {
+export function formsReducer(state: FormsState, action: FormAction): FormsState {
     const intermediateState = {
         ...state,
         ...childrenReducer,

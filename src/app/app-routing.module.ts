@@ -45,6 +45,11 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'custom',
+    loadChildren: () => import('app/@custom/custom-routing.module')
+      .then(m => m.CustomRoutingModule),
+  },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },
 ];

@@ -6,7 +6,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
@@ -20,10 +20,7 @@ import {
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
-import { AppStoreModule } from './app-store/app-store.module';
-import { AuthGuard } from './auth-guard.service';
-import { NbAuthModule, NbAuthJWTToken, NbAuthJWTInterceptor, NB_AUTH_TOKEN_INTERCEPTOR_FILTER } from '@nebular/auth';
-import { JwtAuthStrategy } from './auth/services/jwt-auth-strategy.service';
+import { CustomModule } from './@custom/custom.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -45,36 +42,9 @@ import { JwtAuthStrategy } from './auth/services/jwt-auth-strategy.service';
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),
     CoreModule.forRoot(),
-    AppStoreModule,
-    NbAuthModule.forRoot({
-      strategies: [
-        JwtAuthStrategy.setup({
-          name: 'username',
-          token: {
-            class: NbAuthJWTToken,
-            key: 'token',
-          },
-          baseEndpoint: 'https://sport-stat-pro.com/wp-json/jwt-auth/v1',
-          login: {
-            // ...
-            endpoint: '/token',
-            defaultErrors: ['Email and password combination is not correct, please try again'],
-          },
-        }),
-      ],
-      forms: {
-        login: {
-          strategy: 'username',
-        },
-      },
-    }),
+    CustomModule.forRoot(),
   ],
-  providers: [
-    AuthGuard,
-    JwtAuthStrategy,
-    { provide: HTTP_INTERCEPTORS, useClass: NbAuthJWTInterceptor, multi: true },
-    { provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER, useValue: req => false },
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {

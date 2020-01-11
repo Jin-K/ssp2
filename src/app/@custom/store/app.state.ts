@@ -1,8 +1,8 @@
 import { RouterReducerState } from '@ngrx/router-store';
 import { RouterStateUrl } from './router';
-import { IFormsState } from '../pages/forms';
+import { FormsState } from '../pages/player/state';
 
 export declare interface AppState {
     router: RouterReducerState<RouterStateUrl>;
-    forms?: IFormsState;
+    forms?: FormsState;
 }

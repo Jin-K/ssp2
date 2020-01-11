@@ -20,13 +20,13 @@ import { FormLayoutsComponent } from './form-layouts/form-layouts.component';
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import { ButtonsComponent } from './buttons/buttons.component';
 import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormPlayerComponent } from './form-player/form-player.component';
+import { FormPlayerComponent } from '../../@custom/pages/player/form-player/form-player.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { FORMS_INITIAL_STATE, FormsEffects } from './state';
+import { FORMS_INITIAL_STATE, FormsEffects } from '../../@custom/pages/player/state';
 import { SafePipe } from '../../@core/pipes';
-import { FormPlayerListComponent } from './form-player-list/form-player-list.component';
-import { formsReducer } from './state/forms.reducers';
+import { FormPlayerListComponent } from '../../@custom/pages/player/form-player-list/form-player-list.component';
+import { formsReducer } from '../../@custom/pages/player/state/forms.reducers';
 
 @NgModule({
   imports: [

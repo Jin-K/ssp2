@@ -51,7 +51,6 @@ import { StatsProgressBarService } from './mock/stats-progress-bar.service';
 import { VisitorsAnalyticsService } from './mock/visitors-analytics.service';
 import { SecurityCamerasService } from './mock/security-cameras.service';
 import { MockDataModule } from './mock/mock-data.module';
-import { WordpressConnectorService } from './utils/wordpress-connector.service';
 
 const socialLinks = [
   {
@@ -142,7 +141,6 @@ export const NB_CORE_PROVIDERS = [
   LayoutService,
   PlayerService,
   StateService,
-  WordpressConnectorService,
 ];
 
 @NgModule({
