@@ -1,17 +1,17 @@
 export declare interface Project {
   id: number;
-  date: Date;
-  date_gmt: Date;
+  date: string;
+  date_gmt: string;
   guid: ObjectResult;
-  modified: Date;
-  modified_gmt: Date;
+  modified: string;
+  modified_gmt: string;
   slug: string;
-  status: Status;
+  status: string;
   type: string;
   link: string;
-  title: StringOrObjectResult;
-  content: StringOrObjectResult;
-  excerpt: StringOrObjectResult;
+  title: ObjectResult;
+  content: ObjectResult;
+  excerpt: ObjectResult;
   author: number;
   feature_media: number;
   comment_status: string;
@@ -23,12 +23,10 @@ export declare interface Project {
   _links: { [key: string]: Link[] };
 }
 
-declare type Status = 'draft' | 'publish' | 'pending' | 'private';
 declare interface ObjectResult {
   rendered: string;
   protected?: boolean;
 }
-declare type StringOrObjectResult = string | ObjectResult;
 declare interface Link {
   embeddable?: boolean;
   href: string;

@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { PlayerListComponent } from './player-list/player-list.component';
 import { PlayerEditComponent } from './player-edit/player-edit.component';
 import { CustomThemeModule } from '../../theme/theme.module';
+import { PlayerService } from './player.service';
 
 @NgModule({
   imports: [
@@ -29,6 +30,9 @@ import { CustomThemeModule } from '../../theme/theme.module';
   declarations: [
     PlayerListComponent,
     PlayerEditComponent,
+  ],
+  providers: [
+    PlayerService,
   ],
 })
 export class PlayerModule { }

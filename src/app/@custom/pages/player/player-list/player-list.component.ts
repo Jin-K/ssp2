@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WordpressConnectorService } from '../../../services/wordpress-connector.service';
-import { Project } from '../../../data/projects';
+import { PlayerService, Player } from '../player.service';
 
 @Component({
   selector: 'ssp-player-list',
@@ -8,17 +7,15 @@ import { Project } from '../../../data/projects';
   styleUrls: ['./player-list.component.scss'],
 })
 export class PlayerListComponent implements OnInit {
-
-  projects: Project[];
+  players: Player[];
 
   constructor(
-    private readonly wordpressConnector: WordpressConnectorService,
-  ) { }
+    private readonly playerService: PlayerService,
+  ) {}
 
   ngOnInit() {
-    this.wordpressConnector
-      .getProjects()
-      .subscribe(data => this.projects = data);
+    this.playerService
+      .getPlayers()
+      .subscribe(players => this.players = players);
   }
-
 }

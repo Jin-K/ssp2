@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col">
     <ul>
-      <li *ngFor="let project of projects">
-          <span>Title: {{project.title.rendered || 'pas de titre' }}</span>
-          <span>Status: {{project.status}}</span>
-          <span>Date: {{project.date | date }}</span>
-          <span>Author id: {{project.author}}</span>
+      <li *ngFor="let player of players">
+          <p>Title: {{player.title || 'pas de titre' }}</p>
+          <p>Status: {{player.status}}</p>
+          <p>Date: {{player.date | date }}</p>
+          <p>Author id: {{player.authorId}}</p>
       </li>
     </ul>
   </div>

@@ -1,5 +1,4 @@
 import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { WordpressConnectorService } from './services/wordpress-connector.service';
 import { throwIfAlreadyLoaded } from '../@core/module-import-guard';
 import { AppStoreModule } from './store';
@@ -19,7 +18,6 @@ const CUSTOM_PROVIDERS = [
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
     AppStoreModule,
     NbAuthModule.forRoot({
       strategies: [

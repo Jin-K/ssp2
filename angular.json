@@ -172,10 +172,12 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "ssp",
-      "styleext": "scss"
+      "styleext": "scss",
+      "spec": false
     },
     "@schematics/angular:directive": {
-      "prefix": "ssp"
+      "prefix": "ssp",
+      "spec": false
     }
   }
 }
