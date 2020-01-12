@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Project } from '../data/projects';
 import { Action } from '@ngrx/store';
+import * as _ from 'lodash';
 
 @Injectable()
 export class WordpressConnectorService {
@@ -11,13 +12,31 @@ export class WordpressConnectorService {
 
   constructor(private readonly http: HttpClient) {}
 
-  getProjects(status: string = 'any'): Observable<Project[]> {
-    const path = `${this.endpoint}/project?status=${status}`;
+  getProjects(queryBuilder: QueryBuilder): Observable<Project[]> {
+    queryBuilder.addParam('_embed');
+
+    const path = queryBuilder.toString(`${this.endpoint}/project`);
 
     return this.http.get<Project[]>(path);
   }
 
-  saveProject(_: Action): Observable<object> {
+  saveProject(action: Action): Observable<object> {
     return throwError({message: 'Not implemented !'});
+  }
+}
+
+export class QueryBuilder {
+  private readonly params: {[key: string]: any} = {};
+
+  addParam(key: string, value?: any): void {
+    this.params[key] = value;
+  }
+
+  toString(url?: string): string {
+    const queryStringParts = _.map(this.params, (value, key) => `${key}=${value}`);
+    const queryString = _.join(queryStringParts, '&');
+    return url === undefined
+      ? queryString
+      : `${url}?${queryString}`;
   }
 }
