@@ -8,8 +8,9 @@ const childrenReducer = combineReducers<Partial<PlayerState>, PlayerAction>({
 
 const reducer = createReducer(
     PLAYER_INITIAL_STATE,
-    on(playerActions.SavePlayer, (state, { type, ...action }) => ({
+    on(playerActions.GetPlayersSucceeded, (state, { items }) => ({
         ...state,
+        items,
     })),
 );
 

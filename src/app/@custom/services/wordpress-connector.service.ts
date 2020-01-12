@@ -6,9 +6,6 @@ import { Action } from '@ngrx/store';
 
 @Injectable()
 export class WordpressConnectorService {
-    saveProject(action: Action): Observable<object> {
-      return throwError({message: 'Not implemented !'});
-    }
 
   private readonly endpoint = 'https://sport-stat-pro.com/wp-json/wp/v2';
 
@@ -18,5 +15,9 @@ export class WordpressConnectorService {
     const path = `${this.endpoint}/project?status=${status}`;
 
     return this.http.get<Project[]>(path);
+  }
+
+  saveProject(_: Action): Observable<object> {
+    return throwError({message: 'Not implemented !'});
   }
 }

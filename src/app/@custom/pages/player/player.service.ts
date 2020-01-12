@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { WordpressConnectorService } from '../../services/wordpress-connector.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Action } from '@ngrx/store/src/models';
 
 export declare interface Player {
   title: string;
@@ -24,5 +25,9 @@ export class PlayerService {
           ),
         ),
       );
+  }
+
+  savePlayer(action: Action): Observable<object> {
+    return this.wordpressConnector.saveProject(action);
   }
 }

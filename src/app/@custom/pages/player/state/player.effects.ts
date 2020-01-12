@@ -4,19 +4,37 @@ import { Observable, of } from 'rxjs';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { playerActions } from './player.actions';
 import { map, switchMap, catchError, tap } from 'rxjs/operators';
-import { WordpressConnectorService } from '../../../services/wordpress-connector.service';
+import { PlayerService } from '../player.service';
 
 @Injectable()
 export class PlayerEffects {
   constructor(
     private readonly action$: Actions,
-    private readonly wordpressConnectorService: WordpressConnectorService,
+    private readonly playerService: PlayerService,
   ) { }
+
+  getPlayers$: Observable<Action> = createEffect(() =>
+    this.action$.pipe(
+      ofType(playerActions.GetPlayers),
+      switchMap(_ => this.playerService.getPlayers().pipe(
+        map(items => playerActions.GetPlayersSucceeded({items})),
+        catchError(error => of(playerActions.GetPlayersFailed(error))),
+      )),
+    ),
+  );
+
+  getPlayersFailed$: Observable<any> = createEffect(() =>
+    this.action$.pipe(
+      ofType(playerActions.GetPlayersFailed),
+      tap(error => console.warn('error', error)),
+    ),
+    { dispatch: false },
+  );
 
   savePlayer$: Observable<Action> = createEffect(() =>
     this.action$.pipe(
       ofType(playerActions.SavePlayer),
-      switchMap(action => this.wordpressConnectorService.saveProject(action).pipe(
+      switchMap(action => this.playerService.savePlayer(action).pipe(
         map(response => playerActions.SavePlayerSucceeded({ response })),
         catchError(error => of(playerActions.SavePlayerFailed(error))),
       )),
@@ -27,6 +45,7 @@ export class PlayerEffects {
     this.action$.pipe(
       ofType(playerActions.SavePlayerFailed),
       tap(error => console.warn('error', error)),
-    )
-    , { dispatch: false });
+    ),
+    { dispatch: false },
+  );
 }
