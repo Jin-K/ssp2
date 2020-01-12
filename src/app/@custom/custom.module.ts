@@ -2,15 +2,42 @@ import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core
 import { WordpressConnectorService } from './services/wordpress-connector.service';
 import { throwIfAlreadyLoaded } from '../@core/module-import-guard';
 import { AppStoreModule } from './store';
-import { NbAuthModule, NbAuthJWTToken, NbAuthJWTInterceptor, NB_AUTH_TOKEN_INTERCEPTOR_FILTER } from '@nebular/auth';
-import { JwtAuthStrategy } from './services/jwt-auth-strategy.service';
+import { NbAuthModule, NbAuthJWTToken, NbAuthJWTInterceptor, NB_AUTH_TOKEN_INTERCEPTOR_FILTER, NbPasswordAuthStrategy } from '@nebular/auth';
 import { AuthGuard } from './services/auth-guard.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 const CUSTOM_PROVIDERS = [
   WordpressConnectorService,
   AuthGuard,
-  JwtAuthStrategy,
+  ...NbAuthModule.forRoot({
+    strategies: [
+      NbPasswordAuthStrategy.setup({
+        name: 'username',
+        token: {
+          class: NbAuthJWTToken,
+          key: 'token',
+        },
+        baseEndpoint: 'https://sport-stat-pro.com/wp-json/jwt-auth/v1',
+        login: {
+          // ...
+          endpoint: '/token',
+          defaultErrors: ['Username/email and password combination is not correct, please try again'],
+        },
+      }),
+    ],
+    forms: {
+      login: {
+        strategy: 'username',
+      },
+      validation: {
+        username: {
+          required: true,
+          minLength: 3,
+          maxLength: 50,
+        },
+      },
+    },
+  }).providers,
   { provide: HTTP_INTERCEPTORS, useClass: NbAuthJWTInterceptor, multi: true },
   { provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER, useValue: _ => false },
 ];
@@ -19,28 +46,6 @@ const CUSTOM_PROVIDERS = [
   declarations: [],
   imports: [
     AppStoreModule,
-    NbAuthModule.forRoot({
-      strategies: [
-        JwtAuthStrategy.setup({
-          name: 'username',
-          token: {
-            class: NbAuthJWTToken,
-            key: 'token',
-          },
-          baseEndpoint: 'https://sport-stat-pro.com/wp-json/jwt-auth/v1',
-          login: {
-            // ...
-            endpoint: '/token',
-            defaultErrors: ['Email and password combination is not correct, please try again'],
-          },
-        }),
-      ],
-      forms: {
-        login: {
-          strategy: 'username',
-        },
-      },
-    }),
   ],
 })
 export class CustomModule {
