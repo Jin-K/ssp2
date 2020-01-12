@@ -21,13 +21,31 @@ export declare interface Project {
   project_category: number[];
   project_tag: any[];
   _links: { [key: string]: Link[] };
+  _embedded: { [key: string]: Embedded[] };
 }
 
 declare interface ObjectResult {
   rendered: string;
   protected?: boolean;
 }
+
 declare interface Link {
   embeddable?: boolean;
   href: string;
+}
+
+declare interface Embedded extends Array<Embedded> {
+  id: number;
+  link: string;
+  slug: string;
+  name?: string;
+  media_details?: MediaDetails;
+  _links: { [key: string]: Link[] };
+}
+
+declare interface MediaDetails {
+  width: number;
+  height: number;
+  file: string;
+  sizes: {[key: string]: { file: string; width: number; height: number; mime_type: string; source_url: string; }};
 }

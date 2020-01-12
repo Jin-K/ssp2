@@ -1,10 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Player } from '../player.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store';
 import { playerActions } from '../state';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, filter } from 'rxjs/operators';
+
+declare interface PlayerVm {
+  title: string;
+  status: string;
+  date: Date;
+  authorId: number;
+  category: string;
+  image: string;
+}
 
 @Component({
   selector: 'ssp-player-list',
@@ -14,7 +22,7 @@ import { takeUntil } from 'rxjs/operators';
 export class PlayerListComponent implements OnInit, OnDestroy {
   private readonly unsubscribeAll: Subject<void> = new Subject<void>();
 
-  players: Player[];
+  players: PlayerVm[];
 
   constructor(
     private readonly store: Store<AppState>,
@@ -25,8 +33,19 @@ export class PlayerListComponent implements OnInit, OnDestroy {
 
     this.store
       .select(state => state.player.items)
-      .pipe(takeUntil(this.unsubscribeAll))
-      .subscribe(players => this.players = players);
+      .pipe(
+        filter(playerDtos => playerDtos !== undefined),
+        takeUntil(this.unsubscribeAll),
+      )
+      .subscribe(playerDtos => {
+        this.players = playerDtos
+          .map(({date, category, image, ...playerDto}) => ({
+            ...playerDto,
+            category: category || 'No category',
+            date: new Date(date),
+            image: image || '',
+          }));
+      });
   }
 
   ngOnDestroy() {

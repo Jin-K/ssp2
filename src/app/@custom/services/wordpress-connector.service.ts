@@ -33,7 +33,7 @@ export class QueryBuilder {
   }
 
   toString(url?: string): string {
-    const queryStringParts = _.map(this.params, (value, key) => `${key}=${value}`);
+    const queryStringParts = _.map(this.params, (value, key) => value === undefined ? key : `${key}=${value}`);
     const queryString = _.join(queryStringParts, '&');
     return url === undefined
       ? queryString

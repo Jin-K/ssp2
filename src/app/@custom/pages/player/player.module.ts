@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { PlayerRoutingModule } from './player-routing.module';
-import { NbInputModule, NbCardModule, NbButtonModule, NbDatepickerModule, NbSelectModule, NbAccordionModule } from '@nebular/theme';
+import { NbInputModule, NbCardModule, NbButtonModule, NbDatepickerModule, NbSelectModule, NbAccordionModule, NbUserModule, NbListModule } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { playerReducer } from './state/player.reducers';
@@ -22,6 +22,8 @@ import { PlayerService } from './player.service';
     NbDatepickerModule,
     NbSelectModule,
     NbAccordionModule,
+    NbListModule,
+    NbUserModule,
     FormsModule,
     ReactiveFormsModule,
     StoreModule.forFeature('player', playerReducer, { initialState: PLAYER_INITIAL_STATE }),

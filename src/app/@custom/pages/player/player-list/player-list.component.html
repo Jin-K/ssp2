@@ -1,13 +1,21 @@
 <div class="row">
   <div class="col">
-    <ul>
-      <li *ngFor="let player of players">
-          <p>Title: {{player.title || 'pas de titre' }}</p>
-          <p>Status: {{player.status}}</p>
-          <p>Date: {{player.date | date }}</p>
-          <p>Author id: {{player.authorId}}</p>
-      </li>
-    </ul>
+
+    <nb-card class="list-card" size="large">
+      <nb-card-header>Players</nb-card-header>
+      <nb-list>
+        <nb-list-item *ngFor="let player of players">
+          <nb-user
+            size="large"
+            [name]="player.title"
+            [title]="player.category"
+            [picture]="player.image"
+            >
+          </nb-user>
+        </nb-list-item>
+      </nb-list>
+    </nb-card>
+
   </div>
 </div>
 
