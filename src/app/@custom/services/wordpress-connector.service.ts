@@ -4,11 +4,12 @@ import { Observable, throwError } from 'rxjs';
 import { Project } from '../data/projects';
 import { Action } from '@ngrx/store';
 import * as _ from 'lodash';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class WordpressConnectorService {
 
-  private readonly endpoint = 'https://sport-stat-pro.com/wp-json/wp/v2';
+  private readonly endpoint = `${environment.apiEndpoint}/wp-json/wp/v2`;
 
   constructor(private readonly http: HttpClient) {}
 

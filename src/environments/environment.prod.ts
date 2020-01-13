@@ -6,4 +6,5 @@
 export const environment = {
   production: true,
   devToolsMaxAge: 0,
+  apiEndpoint: 'https://sport-stat-pro.com',
 };

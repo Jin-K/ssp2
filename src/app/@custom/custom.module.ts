@@ -5,6 +5,7 @@ import { AppStoreModule } from './store';
 import { NbAuthModule, NbAuthJWTToken, NbAuthJWTInterceptor, NB_AUTH_TOKEN_INTERCEPTOR_FILTER, NbPasswordAuthStrategy } from '@nebular/auth';
 import { AuthGuard } from './services/auth-guard.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 const CUSTOM_PROVIDERS = [
   WordpressConnectorService,
@@ -17,7 +18,7 @@ const CUSTOM_PROVIDERS = [
           class: NbAuthJWTToken,
           key: 'token',
         },
-        baseEndpoint: 'https://sport-stat-pro.com/wp-json/jwt-auth/v1',
+        baseEndpoint: `${environment.apiEndpoint}/wp-json/jwt-auth/v1`,
         login: {
           // ...
           endpoint: '/token',
