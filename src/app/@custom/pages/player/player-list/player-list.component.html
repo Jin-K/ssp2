@@ -5,13 +5,13 @@
       <nb-card-header>Players</nb-card-header>
       <nb-list>
         <nb-list-item *ngFor="let player of players">
-          <nb-user
+          <ssp-user
             size="large"
             [name]="player.title"
             [title]="player.category"
             [picture]="player.image"
             >
-          </nb-user>
+          </ssp-user>
         </nb-list-item>
       </nb-list>
     </nb-card>
