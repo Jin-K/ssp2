@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../store';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import * as _ from 'lodash';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ssp-player-edit',
@@ -70,9 +71,11 @@ export class PlayerEditComponent implements OnInit {
   constructor(
     private readonly store: Store<AppState>,
     private readonly formBuilder: FormBuilder,
+    private readonly route: ActivatedRoute,
   ) {}
 
   public ngOnInit(): void {
+    this.route.params.subscribe(console.info);
   }
 
   public submit(): void {

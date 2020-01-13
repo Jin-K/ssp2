@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
 
 declare interface PlayerVm {
+  id: number;
   title: string;
   status: string;
   date: Date;
@@ -43,7 +44,7 @@ export class PlayerListComponent implements OnInit, OnDestroy {
             ...playerDto,
             category: category || 'No category',
             date: new Date(date),
-            image: image || '',
+            image,
           }));
       });
   }

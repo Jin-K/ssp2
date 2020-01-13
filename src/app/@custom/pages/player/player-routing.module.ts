@@ -13,7 +13,16 @@ const routes: Routes = [{
     },
     {
       path: 'edit',
-      component: PlayerEditComponent,
+      children: [
+        {
+          path: '',
+          component: PlayerEditComponent,
+        },
+        {
+          path: ':id',
+          component: PlayerEditComponent,
+        },
+      ],
     },
   ],
 }];

@@ -7,6 +7,7 @@ import { Project } from '../../data/projects';
 import * as _ from 'lodash';
 
 export declare interface Player {
+  id: number;
   title: string;
   status: string;
   date: string;
@@ -34,30 +35,31 @@ export class PlayerService {
   }
 
   private mapProjectsToPlayers(projects: Project[]): Player[] {
-    return projects.map(({title, status, date, author, _embedded }) => {
+    return projects.map(({id, title, status, date, author, _embedded }) => {
       const player = {
+        id,
         title: title.rendered,
         status,
         date,
         authorId: author,
-      };
-
-      const featureMedia = _embedded['wp:featuredmedia'];
-      if (featureMedia === undefined || featureMedia.length === 0) {
-        return player;
-      }
-
-      const mediaDetails = featureMedia[0].media_details;
-      const image = _.find(mediaDetails.sizes, ({width, height}) => width === 100 && height === 100).source_url;
+      } as Player;
 
       const term = _embedded['wp:term'];
-      const category = term[0][0].name;
+      if (term !== undefined && term.length > 0) {
+        const firstTerm = term[0];
+        if (firstTerm !== undefined && firstTerm.length > 0) {
+          const category = firstTerm[0].name;
+          player.category = category;
+        }
+      }
 
-      return {
-        ...player,
-        category,
-        image,
-      };
+      const featureMedia = _embedded['wp:featuredmedia'];
+      if (featureMedia !== undefined && featureMedia.length > 0) {
+        const mediaDetails = featureMedia[0].media_details;
+        player.image = _.find(mediaDetails.sizes, ({width, height}) => width === 100 && height === 100).source_url;
+      }
+
+      return player;
     });
   }
 }
