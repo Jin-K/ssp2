@@ -4,16 +4,19 @@ import { environment } from '../../../environments/environment';
 import { RouterState, StoreRouterConnectingModule, RouterStateSerializer, routerReducer } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AppState } from './app.state';
+import { AppState, APP_INITIAL_STATE } from './app.state';
 import { CustomRouterStateSerializer, RouterEffects } from './router';
+import { uiReducer } from './ui/ui.reducer';
+import { UiEffects } from './ui/ui.effects';
 
-const appReducers: ActionReducerMap<AppState> = {
+const reducers: ActionReducerMap<AppState> = {
   router: routerReducer,
+  ui: uiReducer,
 };
 
 @NgModule({
   declarations: [],
-  imports: getImports(appReducers),
+  imports: getImports(),
   providers: [
     {
       provide: RouterStateSerializer,
@@ -23,7 +26,7 @@ const appReducers: ActionReducerMap<AppState> = {
 })
 export class AppStoreModule {}
 
-function getImports(reducers: ActionReducerMap<AppState>): ModuleWithProviders<StoreRootModule>[] {
+function getImports(): ModuleWithProviders<StoreRootModule>[] {
   const devMode = !environment.production;
   const runtimeChecks: RuntimeChecks = {
     strictActionImmutability: devMode,
@@ -31,9 +34,10 @@ function getImports(reducers: ActionReducerMap<AppState>): ModuleWithProviders<S
     strictStateImmutability: devMode,
     strictStateSerializability: devMode,
   };
+  const initialState = APP_INITIAL_STATE;
   const imports = [
-    StoreModule.forRoot(reducers, { metaReducers: [], runtimeChecks }),
-    EffectsModule.forRoot([RouterEffects]),
+    StoreModule.forRoot(reducers, { initialState, metaReducers: [], runtimeChecks }),
+    EffectsModule.forRoot([RouterEffects, UiEffects]),
     StoreRouterConnectingModule.forRoot({ routerState: RouterState.Minimal }),
   ];
   if (devMode) {

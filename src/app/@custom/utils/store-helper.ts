@@ -14,5 +14,5 @@ export function createPrefixedAction<T extends string, P extends object>(prefix:
   _as: 'props',
   _p: P,
 }): TypedActionWithoutProps<T> | TypedActionWithProps<T, P> {
-  return createAction(`${prefix}${type}` as T, config);
+  return createAction(`${prefix} ${type}` as T, config);
 }

@@ -2,7 +2,7 @@ import { props } from '@ngrx/store';
 import { createPrefixedAction } from '../../../utils';
 import { Player } from '../player.service';
 
-const PREFIX = '[PLAYER] ';
+const PREFIX = '[PLAYER]';
 
 enum FormActionLabels {
   GET_PLAYERS = 'GET_PLAYERS',
