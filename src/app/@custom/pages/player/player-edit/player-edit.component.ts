@@ -75,7 +75,7 @@ export class PlayerEditComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.route.params.subscribe(console.info);
+    console.info(this.route.snapshot.data.player);
   }
 
   public submit(): void {

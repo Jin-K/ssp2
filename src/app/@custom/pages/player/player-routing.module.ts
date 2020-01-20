@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PlayerEditComponent } from './player-edit/player-edit.component';
 import { PlayerListComponent } from './player-list/player-list.component';
+import { PlayerResolver } from './player.resolver';
 
 
 const routes: Routes = [{
@@ -21,6 +22,9 @@ const routes: Routes = [{
         {
           path: ':id',
           component: PlayerEditComponent,
+          resolve: {
+            player: PlayerResolver,
+          },
         },
       ],
     },
