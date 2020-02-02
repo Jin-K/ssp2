@@ -4,9 +4,9 @@ import { Store } from '@ngrx/store';
 import { Player } from './player.service';
 import { Observable } from 'rxjs';
 import { AppState } from '../../store';
-import { playerSelectors } from './state';
+import { playerSelectors, playerActions } from './state';
 import { Injectable } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { first, filter, tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class PlayerResolver implements Resolve<Player> {
@@ -15,7 +15,17 @@ export class PlayerResolver implements Resolve<Player> {
 
   resolve(route: ActivatedRouteSnapshot): Observable<Player> {
     const id = +route.paramMap.get('id');
-    return this.store.select(playerSelectors.item, { id }).pipe(first());
+    return this.store
+      .select(playerSelectors.item, { id })
+      .pipe(
+        tap(player => {
+          if (player === undefined) {
+            this.store.dispatch(playerActions.GetPlayer({id}));
+          }
+        }),
+        filter(player => player !== undefined),
+        first(),
+      );
   }
 
 }

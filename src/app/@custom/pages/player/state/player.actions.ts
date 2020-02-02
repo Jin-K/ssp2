@@ -5,6 +5,9 @@ import { Player } from '../player.service';
 const PREFIX = '[PLAYER]';
 
 enum FormActionLabels {
+  GET_PLAYER = 'GET_PLAYER',
+  GET_PLAYER_SUCCEEDED = 'GET_PLAYER_SUCCEEDED',
+  GET_PLAYER_FAILED = 'GET_PLAYER_FAILED',
   GET_PLAYERS = 'GET_PLAYERS',
   GET_PLAYERS_SUCCEEDED = 'GET_PLAYERS_SUCCEEDED',
   GET_PLAYERS_FAILED = 'GET_PLAYERS_FAILED',
@@ -14,8 +17,11 @@ enum FormActionLabels {
 }
 
 export const playerActions = {
+  GetPlayer: createPrefixedAction(PREFIX, FormActionLabels.GET_PLAYER, props<{id: number}>()),
+  GetPlayerSucceeded: createPrefixedAction(PREFIX, FormActionLabels.GET_PLAYER_SUCCEEDED, props<{ player: Player }>()),
+  GetPlayerFailed: createPrefixedAction(PREFIX, FormActionLabels.GET_PLAYER_FAILED, props<object>()),
   GetPlayers: createPrefixedAction(PREFIX, FormActionLabels.GET_PLAYERS),
-  GetPlayersSucceeded: createPrefixedAction(PREFIX, FormActionLabels.GET_PLAYERS_SUCCEEDED, props<{ items: Player[] }>()),
+  GetPlayersSucceeded: createPrefixedAction(PREFIX, FormActionLabels.GET_PLAYERS_SUCCEEDED, props<{ players: Player[] }>()),
   GetPlayersFailed: createPrefixedAction(PREFIX, FormActionLabels.GET_PLAYERS_FAILED, props<object>()),
   SavePlayer: createPrefixedAction(PREFIX, FormActionLabels.SAVE_PLAYER, props<{ readonly data: object }>()),
   SavePlayerSucceeded: createPrefixedAction(PREFIX, FormActionLabels.SAVE_PLAYER_SUCCEEDED, props<{ readonly response: object }>()),

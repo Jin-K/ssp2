@@ -1,13 +1,12 @@
+import { EntityState } from '@ngrx/entity';
 import { Player } from '../player.service';
+import { adapter } from './player.adapter';
 
-// tslint:disable-next-line:no-empty-interface
-export declare interface PlayerState {
-  items: Player[];
+export declare interface PlayerState extends EntityState<Player> {
 }
 
-export const PLAYER_INITIAL_STATE: PlayerState = {
-  items: undefined,
-};
+export const PLAYER_INITIAL_STATE: PlayerState = adapter.getInitialState({
+});
 
 export * from './player.actions';
 export * from './player.effects';

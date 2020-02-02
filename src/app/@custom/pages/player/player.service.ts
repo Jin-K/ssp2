@@ -20,6 +20,15 @@ export declare interface Player {
 export class PlayerService {
   constructor(private readonly wordpressConnector: WordpressConnectorService) {}
 
+  getPlayer(id: number): Observable<Player> {
+    const queryBuilder = new QueryBuilder();
+    queryBuilder.addParam('status', 'any');
+
+    return this.wordpressConnector
+      .getProject(id, queryBuilder)
+      .pipe(map(this.mapProjectToPlayer.bind(this)));
+  }
+
   getPlayers(perPage: number = 10): Observable<Player[]> {
     const queryBuilder = new QueryBuilder();
     queryBuilder.addParam('status', 'any');
@@ -27,7 +36,7 @@ export class PlayerService {
 
     return this.wordpressConnector
       .getProjects(queryBuilder)
-      .pipe(map(this.mapProjectsToPlayers));
+      .pipe(map(this.mapProjectsToPlayers.bind(this)));
   }
 
   savePlayer(action: Action): Observable<object> {
@@ -35,31 +44,33 @@ export class PlayerService {
   }
 
   private mapProjectsToPlayers(projects: Project[]): Player[] {
-    return projects.map(({id, title, status, date, author, _embedded }) => {
-      const player = {
-        id,
-        title: title.rendered,
-        status,
-        date,
-        authorId: author,
-      } as Player;
+    return projects.map(this.mapProjectToPlayer);
+  }
 
-      const term = _embedded['wp:term'];
-      if (term !== undefined && term.length > 0) {
-        const firstTerm = term[0];
-        if (firstTerm !== undefined && firstTerm.length > 0) {
-          const category = firstTerm[0].name;
-          player.category = category;
-        }
+  private mapProjectToPlayer({id, title, status, date, author, _embedded }: Project): Player {
+    const player = {
+      id,
+      title: title.rendered,
+      status,
+      date,
+      authorId: author,
+    } as Player;
+
+    const term = _embedded['wp:term'];
+    if (term !== undefined && term.length > 0) {
+      const firstTerm = term[0];
+      if (firstTerm !== undefined && firstTerm.length > 0) {
+        const category = firstTerm[0].name;
+        player.category = category;
       }
+    }
 
-      const featureMedia = _embedded['wp:featuredmedia'];
-      if (featureMedia !== undefined && featureMedia.length > 0) {
-        const mediaDetails = featureMedia[0].media_details;
-        player.image = _.find(mediaDetails.sizes, ({width, height}) => width === 100 && height === 100).source_url;
-      }
+    const featureMedia = _embedded['wp:featuredmedia'];
+    if (featureMedia !== undefined && featureMedia.length > 0) {
+      const mediaDetails = featureMedia[0].media_details;
+      player.image = _.find(mediaDetails.sizes, ({width, height}) => width === 100 && height === 100).source_url;
+    }
 
-      return player;
-    });
+    return player;
   }
 }

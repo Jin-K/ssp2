@@ -13,6 +13,14 @@ export class WordpressConnectorService {
 
   constructor(private readonly http: HttpClient) {}
 
+  getProject(id: number, queryBuilder: QueryBuilder): Observable<Project> {
+    queryBuilder.addParam('_embed');
+
+    const path = queryBuilder.toString(`${this.endpoint}/project/${id}`);
+
+    return this.http.get<Project>(path);
+  }
+
   getProjects(queryBuilder: QueryBuilder): Observable<Project[]> {
     queryBuilder.addParam('_embed');
 

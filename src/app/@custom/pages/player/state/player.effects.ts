@@ -17,11 +17,21 @@ export class PlayerEffects {
     private readonly toastrService: NbToastrService,
   ) { }
 
+  getPlayer$: Observable<Action> = createEffect(() =>
+    this.action$.pipe(
+      ofType(playerActions.GetPlayer),
+      switchMap(({id}) => this.playerService.getPlayer(id).pipe(
+        map(player => playerActions.GetPlayerSucceeded({player})),
+        catchError(error => of(playerActions.GetPlayerFailed(this.serializeError(error)))),
+      )),
+    ),
+  );
+
   getPlayers$: Observable<Action> = createEffect(() =>
     this.action$.pipe(
       ofType(playerActions.GetPlayers),
       switchMap(_ => this.playerService.getPlayers().pipe(
-        map(items => playerActions.GetPlayersSucceeded({items})),
+        map(players => playerActions.GetPlayersSucceeded({players})),
         catchError(error => of(playerActions.GetPlayersFailed(this.serializeError(error)))),
       )),
     ),
@@ -59,6 +69,7 @@ export class PlayerEffects {
     { dispatch: false },
   );
 
+  // TODO: move this to a global application effects service (e.g. AppEffects)
   private showToast(error: object): void {
     error = error['error'] || error;
     const title = 'Something went wrong !';

@@ -12,6 +12,7 @@ import { PlayerEditComponent } from './player-edit/player-edit.component';
 import { CustomThemeModule } from '../../theme/theme.module';
 import { PlayerService } from './player.service';
 import { UserModule } from '../../theme/components/user/user.module';
+import { PlayerConsultComponent } from './player-consult/player-consult.component';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { UserModule } from '../../theme/components/user/user.module';
   declarations: [
     PlayerListComponent,
     PlayerEditComponent,
+    PlayerConsultComponent,
   ],
   providers: [
     PlayerService,

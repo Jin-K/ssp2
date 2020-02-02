@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store';
-import { playerActions } from '../state';
+import { playerActions, playerSelectors } from '../state';
 import { Subject } from 'rxjs';
-import { takeUntil, filter } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 declare interface PlayerVm {
   id: number;
@@ -33,11 +33,8 @@ export class PlayerListComponent implements OnInit, OnDestroy {
     this.store.dispatch(playerActions.GetPlayers());
 
     this.store
-      .select(state => state.player.items)
-      .pipe(
-        filter(playerDtos => playerDtos !== undefined),
-        takeUntil(this.unsubscribeAll),
-      )
+      .select(playerSelectors.players)
+      .pipe(takeUntil(this.unsubscribeAll))
       .subscribe(playerDtos => {
         this.players = playerDtos
           .map(({date, category, image, ...playerDto}) => ({

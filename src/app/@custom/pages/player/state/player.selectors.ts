@@ -1,19 +1,23 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { PlayerState } from '.';
+import { adapter } from './player.adapter';
 
 const selectors = {
-  getItems: (state: PlayerState) => state.items,
-  getItem: (state: PlayerState, props: { id: number }) => state.items.find(item => item.id === props.id),
+  getItem: (state: PlayerState, props: { id: number }) => state.entities[props.id],
 };
 const featureSelector = createFeatureSelector<PlayerState>('player');
 
+const {
+  selectAll,
+} = adapter.getSelectors();
+
 export const playerSelectors = {
-  items: createSelector(
-    featureSelector,
-    selectors.getItems,
-  ),
   item: createSelector(
     featureSelector,
     selectors.getItem,
+  ),
+  players: createSelector(
+    featureSelector,
+    selectAll,
   ),
 };

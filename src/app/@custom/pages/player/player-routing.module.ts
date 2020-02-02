@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PlayerEditComponent } from './player-edit/player-edit.component';
 import { PlayerListComponent } from './player-list/player-list.component';
 import { PlayerResolver } from './player.resolver';
+import { PlayerConsultComponent } from './player-consult/player-consult.component';
 
 
 const routes: Routes = [{
@@ -11,6 +12,13 @@ const routes: Routes = [{
     {
       path: '',
       component: PlayerListComponent,
+    },
+    {
+      path: 'consult/:id',
+      component: PlayerConsultComponent,
+      resolve: {
+        player: PlayerResolver,
+      },
     },
     {
       path: 'edit',
