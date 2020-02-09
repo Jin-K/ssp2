@@ -11,5 +11,6 @@
 export const environment = {
   production: false,
   devToolsMaxAge: 100,
-  apiEndpoint: 'https://sport-stat-pro.local',
+  // apiEndpoint: 'https://sport-stat-pro.local',
+  apiEndpoint: 'https://sport-stat-pro.com',
 };
