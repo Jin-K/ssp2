@@ -1,4 +1,4 @@
-import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core';
+import { NgModule, Optional, SkipSelf, ModuleWithProviders, APP_INITIALIZER } from '@angular/core';
 import { WordpressConnectorService } from './services/wordpress-connector.service';
 import { throwIfAlreadyLoaded } from '../@core/module-import-guard';
 import { AppStoreModule } from './store';
@@ -6,8 +6,18 @@ import { NbAuthModule, NbAuthJWTToken, NbAuthJWTInterceptor, NB_AUTH_TOKEN_INTER
 import { AuthGuard } from './services/auth-guard.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { SspConfigService } from './services/config/config.service';
+import { SspApiService } from './services/api.service';
 
 const CUSTOM_PROVIDERS = [
+  {
+    provide: APP_INITIALIZER,
+    useFactory: (configService: SspConfigService, apiService: SspApiService) =>
+      () => configService.getConfig().then(config => apiService.apiUrl = config.apiUrl,
+    ),
+    deps: [SspConfigService, SspApiService],
+    multi: true,
+  },
   WordpressConnectorService,
   AuthGuard,
   ...NbAuthModule.forRoot({
@@ -40,7 +50,7 @@ const CUSTOM_PROVIDERS = [
     },
   }).providers,
   { provide: HTTP_INTERCEPTORS, useClass: NbAuthJWTInterceptor, multi: true },
-  { provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER, useValue: _ => false },
+  { provide: NB_AUTH_TOKEN_INTERCEPTOR_FILTER, useValue: (_: any) => false },
 ];
 
 @NgModule({
@@ -60,6 +70,6 @@ export class CustomModule {
       providers: [
         ...CUSTOM_PROVIDERS,
       ],
-    } as ModuleWithProviders;
+    };
   }
 }
